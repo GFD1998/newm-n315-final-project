@@ -1,86 +1,234 @@
 export default class SPAManager{
 
+    //Fields
+    pm;
+    um;
 
-    _model;
-    gm;
-    userSettings;
+    //Entry Point - Constructor
+    constructor(userModel, pageManager){
+        //Assignments
+        this.um = userModel;
+        this.pm = pageManager;
+        this.setTriggers();
+    }
 
-
+    //Page call functions
     homeContent(){
-        $("#mainContainer").html(this._model.homeContent);
-        // window.location.hash = "home";
+        $("#mainContainer").html(this.pm.homeContent);
+        window.location = '';
+        this.checkUser();
     }
 
-    createContent(){
-        $("#mainContainer").html(this._model.createContent);
-        // window.location.hash = "home";
+    browseRecipesContent(){
+        $("#mainContainer").html(this.pm.browseContent);
+        this.checkUser();
     }
 
-    editContent(){
-        $("#mainContainer").html(this._model.editContent);
-        // window.location.hash = "home";
+    createRecipesContent(){
+        $("#mainContainer").html(this.pm.createContent);
+        this.checkUser();
     }
 
-    loginSignupContent(){
-        $("#mainContainer").html(this._model.loginSignupContent);
-        // window.location.hash = "home";
+    yourRecipesContent(){
+        $("#mainContainer").html(this.pm.yourContent);
+        this.checkUser();
+    }
+
+    editRecipesContent(){
+        $("#mainContainer").html(this.pm.editContent);
+        this.checkUser();
+    }
+
+    viewRecipesContent(){
+        $("#mainContainer").html(this.pm.viewContent);
+        this.checkUser();
+    }
+
+    loginCreateAccountContent(){
+        $("#mainContainer").html(this.pm.loginSignupContent);
+        this.checkUser();
     }
 
     defaultContent(){
-        $("#mainContainer").html(this._model.defaultContent);
-        // window.location.hash = "home";
+        $("#mainContainer").html(this.pm.defaultContent);
+        this.checkUser();
     }
 
-    detailsPage(page){
-        console.log("Hello from dp");
-        switch(page){
-            case "capcom":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+
+
+    //Account functions
+    createAccount(){
+        let fName = $("#fName").val();
+        let lName = $("#lName").val();
+        let email = $("#createEmail").val();
+        let password = $("#createPassword").val();
+        this.um.createUser(fName, lName, email, password);
+    }
+
+    login(){
+        let email = $("#loginEmail").val();
+        let password = $("#loginPassword").val();
+        this.um.loginUser(email, password);
+    }
+
+    logout(){
+        this.um.logoutUser();
+    }
+
+    checkUser(){
+        this.um.checkForUser();
+        this.setRecipeData();
+        // $("#userFNameTitle").html("user");
+        // if(this.um.user.first_name == undefined){
+        //     $("#userFNameTitle").html("user");
+        // }else{
+        //     $("#userFNameTitle").html(this.um.user.first_name);
+        // }
+    }
+
+
+
+    //View update function
+    updateView(){
+        console.log("Update view.");
+        $('title').html(`${window.location.hash.split('#')[1]} Page`);
+        window.scrollTo(0, 0);
+        $("#mainMenu").css("display", "none");
+        this.checkUser();
+        this.setTriggers();
+        console.log("The title is visible.");
+        console.log($('#recipeTitle'));
+        console.log($("#recipeTitle").html());
+    }
+
+
+    setRecipeData(){
+        $('#recipeTitle').html(this.um.recipes[2].doc.data.value.mapValue.fields.name.stringValue);
+        $("#recipeDescription").html(this.um.recipes[2].doc.data.value.mapValue.fields.description.stringValue);
+        $("#hoursVal").html(this.um.recipes[2].doc.data.value.mapValue.fields.hours.integerValue);
+        $("#minutesVal").html(this.um.recipes[2].doc.data.value.mapValue.fields.minutes.integerValue);
+        $('#servingsVal').html(this.um.recipes[2].doc.data.value.mapValue.fields.servings.integerValue);
+    }
+
+    //Trigger assignment function
+    setTriggers(){
+
+        //Document ready trigger
+        $(document).ready(e => {
+            console.log(window.location.hash);
+            if(window.location.hash != ''){
+                this.hashChange();
+            }else{
+                $("#mainContainer").html(this.defaultContent());
+            }
+        });
+
+        //URL hash change (https://app.com/#VAR) trigger
+        $(window).on("hashchange", e => {
+            this.hashChange(); 
+        });
+
+        //Hamburger menu trigger
+        $("#hamburger").on("click", e =>{
+            if($("#mainMenu").css("display") == "none"){
+                $("#mainMenu").css("display", "block");
+            }else if($("#mainMenu").css("display") == "block"){
+                $("#mainMenu").css("display", "none");
+            }
+        });
+    }
+
+    hashChange(){
+        //Hash switch statement
+        switch(window.location.hash){
+            case "#HOME":
+                this.homeContent();
                 break;
-            case "bethesda":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#BROWSE":
+                this.browseRecipesContent();
                 break;
-            case "blizzard":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#CREATE":
+                this.createRecipesContent();
+                this.um.testing();
                 break;
-            case "ea":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#YOURRECIPE":
+                this.yourRecipesContent();
                 break;
-            case "fromSoftware":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#EDIT":
+                this.editRecipesContent();
                 break;
-            case "naughtyDog":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#VIEW":
+                this.viewRecipesContent();
                 break;
-            case "nintendo":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#LOGIN":
+                this.loginCreateAccountContent();
                 break;
-            case "rockstar":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#LOGIN-USER":
+                this.login();
                 break;
-            case "scottCawthon":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#LOGOUT":
+                this.logout();
                 break;
-            case "squareEnix":
-                $("#mainContainer").html(this._model.detailContent);
-                this.updateDetailsPage(page);
+            case "#SIGNUP-USER":
+                this.createAccount();
                 break;
             default:
                 break;
         }
     }
+}
 
 
-    updateDetailsPage(page){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+// window.location = $(location).attr("href").split("#")[0];
+        //Window resize trigger (under development)
+        // $(window).on("resize", e => {
+        //     var pageWidth = e.currentTarget.innerWidth;
+        //     if(pageWidth >= 960){
+                
+        //     }else{
+
+        //     }
+        // });
+
+                    // console.log("Hello from routeTo()" + window.location.hash);
+updateDetailsPage(page){
         console.log("Hello from udp");
         for(var i = 0;i < 10;i++){
             console.log(i);
@@ -168,77 +316,6 @@ export default class SPAManager{
             }
         }
     }
-
-
-
-    updateView(){
-        $('title').html(`${window.location.hash.split('#')[1]} Page`);
-        window.scrollTo(0, 0);
-        $("#mainMenu").css("display", "none");
-        this.setTriggers();
-    }
-
-
-    constructor(_model, gallery){
-        this._model = _model;
-        this.gm = gallery;
-        $(document).ready(e => {
-            this.updateView();
-            if($("#mainContainer").innerHTML == null){
-                $("#mainContainer").html(this.defaultContent());
-            }
-            // window.location = $(location).attr("href").split("#")[0];
-        });
-
-        $(window).on("hashchange", e => {
-            console.log("Hello from routeTo()" + window.location.hash);
-            switch(window.location.hash){
-                case "#HOME":
-                    this.homeContent();
-                    break;
-                case "#CREATE":
-                    this.createContent();
-                    break;
-                case "#EDIT":
-                    this.editContent();
-                    break;
-                case "#LOGIN":
-                    this.loginSignupContent();
-                    break;
-                case "#SIGNUP":
-                    this.loginSignupContent();
-                    break;
-                case "#DETAILS":
-                    console.log($("#galleryImage").attr("src").split("/")[3].split(".")[0]);
-                    this.detailsPage($("#galleryImage").attr("src").split("/")[3].split(".")[0]);
-                    break;
-                default:
-                    break;
-            }
-            this.updateView();
-        });
-
-        $("#hamburger").on("click", e =>{
-            if($("#mainMenu").css("display") == "none"){
-                $("#mainMenu").css("display", "block");
-            }else if($("#mainMenu").css("display") == "block"){
-                $("#mainMenu").css("display", "none");
-            }
-        });
-
-
-        $(window).on("resize", e => {
-            var pageWidth = e.currentTarget.innerWidth;
-            if(pageWidth >= 960){
-
-            }else{
-
-            }
-        });
-
-        this.setTriggers();
-    }
-
     setTriggers(){
         $(".imageContainerSection img").mouseenter(e => {
             $(".overlayImageContainer").css("display", "block");
@@ -247,11 +324,55 @@ export default class SPAManager{
             $(".overlayImageContainer").css("display", "none");
         });
     }
-}
 
 
-
-/*
+    detailsPage(page){
+        console.log("Hello from dp");
+        switch(page){
+            case "capcom":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "bethesda":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "blizzard":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "ea":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "fromSoftware":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "naughtyDog":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "nintendo":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "rockstar":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "scottCawthon":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            case "squareEnix":
+                $("#mainContainer").html(this.um.detailContent);
+                this.updateDetailsPage(page);
+                break;
+            default:
+                break;
+        }
+    }
         {
             "title":"Monster Hunter Rise",
             "publisher":"Capcom",

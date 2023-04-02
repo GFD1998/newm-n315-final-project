@@ -6,12 +6,16 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  background-size: cover;
 }
 
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #FFF;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -38,6 +42,12 @@ h1, h2, h3, h4, h5, h6, p {
   margin-left: auto;
   background-repeat: no-repeat;
   z-index: 100;
+}
+
+#mainContainer {
+  max-width: 100%;
+  position: relative;
+  z-index: 0;
 }
 
 #banner {
@@ -98,6 +108,14 @@ h1, h2, h3, h4, h5, h6, p {
   width: 100%;
   height: 66.5vw;
   position: absolute;
+}
+
+.pink-overlay {
+  background-color: rgba(242, 92, 84, 0.75);
+  width: 100vw;
+  height: 150%;
+  position: absolute;
+  z-index: 2;
 }
 
 #bLetter {
@@ -742,17 +760,19 @@ textarea {
   border-radius: initial;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 960px) {
   * {
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
   }
+  html {
+    height: 100vh !important;
+  }
   html, body {
     width: 100%;
     height: 100%;
-    background-color: #FFF;
   }
   h1, h2, h3, h4, h5, h6, p {
     margin-bottom: 15px;
@@ -1297,31 +1317,55 @@ textarea {
     font-weight: 400;
   }
 }
+#recipesContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+#recipesTitle {
+  text-align: left;
+  padding-left: 2rem;
+}
+
 #recipeSection {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 45%;
+  margin: 0 2rem;
+  margin-bottom: 10rem;
 }
 
 #recipeImage {
   overflow: hidden;
-  width: 75%;
-  height: 50vw;
+  height: 30rem;
+  width: 75vw;
   border-radius: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #recipeImage img {
-  width: 100%;
+  width: 300%;
+  height: 30rem;
 }
 
 #recipeText {
@@ -1338,8 +1382,9 @@ textarea {
           align-items: center;
   background-color: #FFF;
   border-radius: 5rem;
-  margin-bottom: 10rem;
-  width: 75%;
+  height: 30rem;
+  width: 75vw;
+  overflow: hidden;
 }
 
 #recipeText h2, #recipeText p {
@@ -1373,10 +1418,444 @@ textarea {
   margin-right: 1rem;
 }
 
-#ssContainer {
-  background-image: src("../../assets/images/homeBanner.jpg") !important;
+@media only screen and (max-width: 1300px) {
+  #recipesContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+  }
+  #recipeSection {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 90%;
+  }
+}
+#loginCreateAccountContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
+#createRecipeContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#loginArea, #createAccountArea {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  padding: 10rem;
+}
+
+.loginInput {
+  margin-bottom: 5rem;
+}
+
+.loginInput input {
+  background-color: rgba(0, 0, 0, 0);
+  outline: none !important;
+  border: 0;
+  width: 20vw;
+  font-size: 1.5vw;
+}
+
+.loginInput input::-webkit-input-placeholder {
+  color: #000;
+}
+
+.loginInput input::-moz-placeholder {
+  color: #000;
+}
+
+.loginInput input:-ms-input-placeholder {
+  color: #000;
+}
+
+.loginInput input::-ms-input-placeholder {
+  color: #000;
+}
+
+.loginInput input::placeholder {
+  color: #000;
+}
+
+.recipeInput {
+  margin-bottom: 5rem;
+}
+
+.recipeInput input {
+  background-color: rgba(0, 0, 0, 0);
+  outline: none !important;
+  border: 0;
+  width: 75vw;
+  font-size: 1.5vw;
+}
+
+.recipeInput input::-webkit-input-placeholder {
+  color: #000;
+}
+
+.recipeInput input::-moz-placeholder {
+  color: #000;
+}
+
+.recipeInput input:-ms-input-placeholder {
+  color: #000;
+}
+
+.recipeInput input::-ms-input-placeholder {
+  color: #000;
+}
+
+.recipeInput input::placeholder {
+  color: #000;
+}
+
+.submitBtn {
+  background-color: #FFD972;
+  -webkit-box-shadow: 0 4px 4px 1px #000;
+          box-shadow: 0 4px 4px 1px #000;
+  border-radius: 5rem;
+}
+
+.submitBtn:hover {
+  background-color: #ffe6a2;
+  -webkit-box-shadow: 0 1px 5px 1px #000;
+          box-shadow: 0 1px 5px 1px #000;
+}
+
+.submitBtn:focus {
+  background-color: #ffe6a2;
+  -webkit-box-shadow: 0 1px 5px 1px #000;
+          box-shadow: 0 1px 5px 1px #000;
+}
+
+#createAccountCaption {
+  font-style: italic;
+}
+
+.submitBtn a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 2vw;
+}
+
+#loginArea h1, #createAccountArea h1 {
+  font-weight: 400;
+  margin-bottom: 5rem;
+  text-align: left !important;
+}
+
+#createAccountCaption {
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 960px) {
+  #loginCreateAccountContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #loginArea, #createAccountArea {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    position: relative;
+    padding: 10rem 2rem;
+  }
+  .loginInput input {
+    background-color: rgba(0, 0, 0, 0);
+    outline: none !important;
+    border: 0;
+    width: 20vw;
+    font-size: 2vw;
+  }
+}
+@media only screen and (max-width: 500px) {
+  #loginArea {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    position: relative;
+    padding: 12rem 5rem;
+  }
+}
+#yourRecipeContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 10rem;
+  margin-left: 10rem;
+}
+
+#recipeImage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.yourRecipeImage {
+  width: 100vw !important;
+}
+
+#yourRecipeBtnSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-top: -10rem;
+  margin-bottom: 20rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.customBtn1 {
+  margin-right: 4vw;
+  width: 10vw;
+  text-align: center;
+}
+
+.customBtn1 a {
+  font-size: 1vw !important;
+}
+
+.green-overlay {
+  background-color: rgba(167, 232, 189, 0.75);
+  width: 100vw;
+  height: 150%;
+  position: absolute;
+  z-index: 0;
+}
+
+@media only screen and (max-width: 1300px) {
+  #yourRecipeContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 90% !important;
+    height: 75% !important;
+    margin-top: 10rem;
+    margin-left: 0rem !important;
+  }
+  #yourRecipeBtnSection {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    margin-top: -10rem;
+    margin-bottom: 10rem;
+    margin-left: 3rem;
+    margin-right: 0rem;
+    width: 80vw;
+  }
+  .yourRecipeImage {
+    width: 75vw !important;
+  }
+  .customBtn1 {
+    margin-right: 30vw;
+    width: 10vw;
+    text-align: center;
+  }
+  .customBtn1 a {
+    font-size: 1vw !important;
+  }
+}
+@media only screen and (max-width: 960px) {
+  .green-overlay {
+    background-color: rgba(167, 232, 189, 0.75);
+    width: 100vw;
+    height: 150%;
+    position: absolute;
+    z-index: 0;
+  }
+}
+#viewRecipeContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  width: 80%;
+  margin-top: 10rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#viewRecipeImage {
+  width: 50%;
+}
+
+#viewRecipeImage img {
+  max-width: 100%;
+}
+
+#viewRecipeDescription {
+  width: 50vw;
+  padding-left: 3rem;
+}
+
+#viewRecipeTopSection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#viewRecipeIngredients, #viewRecipeInstructions {
+  margin-left: 2rem;
+}
+
+#viewRecipeIngredients h1, #viewRecipeInstructions h1 {
+  margin-left: -1.3rem;
+}
+
+.editRecipeBtn {
+  margin-bottom: 10rem;
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  font-size: 0.1rem !important;
+}
+
+.editRecipeBtn p {
+  font-size: 0.1rem !important;
+}
+
+@media only screen and (max-width: 960px) {
+  #viewRecipeTopSection {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #viewRecipeIngredients, #viewRecipeInstructions {
+    margin: 0 auto;
+  }
+  #viewRecipeIngredients h1, #viewRecipeInstructions h1 {
+    margin: 0 auto;
+  }
+}
 /*
  *  NavBar Styles
  */
@@ -1395,7 +1874,7 @@ nav {
       -ms-flex-align: center;
           align-items: center;
   height: 10vh;
-  width: 60%;
+  width: 90%;
   background-color: rgba(0, 0, 0, 0);
   position: absolute;
   z-index: 999;
@@ -1403,7 +1882,21 @@ nav {
 }
 
 #logoImage {
-  width: 10rem;
+  width: 15rem;
+}
+
+#navLinks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#login, #logout {
+  display: none;
 }
 
 #iconsGroup1 {
@@ -1544,7 +2037,10 @@ nav div a:hover {
     display: block;
     width: 2rem;
   }
-  nav a {
+  #logoImage {
+    width: 10rem;
+  }
+  #navLinks a, #navLinks div {
     display: none;
   }
   nav svg {
@@ -1584,6 +2080,10 @@ footer {
   margin-top: -8vw;
 }
 
+footer a {
+  text-decoration: none !important;
+}
+
 #cpInfo {
   font-size: 1rem;
   font-weight: 700;
@@ -1621,6 +2121,11 @@ footer {
       -ms-flex-align: center;
           align-items: center;
   margin: 0;
+}
+
+#socials div img {
+  max-width: 3rem;
+  margin: 0 2rem;
 }
 
 #links {

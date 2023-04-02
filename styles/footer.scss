@@ -16,6 +16,10 @@ footer{
     margin-top: -8vw;
 }
 
+footer a{
+    text-decoration: none !important;
+}
+
 #cpInfo{
     font-size: 1rem;
     font-weight: 700;
@@ -37,6 +41,11 @@ footer{
     flex-direction: row;
     align-items: center;
     margin: 0;
+}
+
+#socials div img{
+    max-width: 3rem;
+    margin: 0 2rem;
 }
 
 #links{
