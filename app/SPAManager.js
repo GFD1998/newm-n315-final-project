@@ -31,11 +31,14 @@ export default class SPAManager{
 
     yourRecipesContent(){
         $("#mainContainer").html(this.pm.yourContent);
-        this.checkUser();
+        this.checkUser().then(() => {
+            this.um.setRecipeData();
+        });
     }
 
     editRecipesContent(){
         $("#mainContainer").html(this.pm.editContent);
+        this.um.pullRecipeData();
         this.checkUser();
     }
 
@@ -75,9 +78,57 @@ export default class SPAManager{
         this.um.logoutUser();
     }
 
-    checkUser(){
+    // setCustomRecipe(){
+    //     let recipeList = {
+    //         "hours":$("#recipesTotalTime").split(" ")[0],
+    //         "image": "/assets/images/recipes/recipe-burger.png",
+    //         "minutes":$("#recipesTotalTime").split(" ")[2],
+    //         "name":$("recipeName"),
+    //         "servings":$("#recipeServingSize"),
+    //         "description":$("#recipeDesc"),
+    //         "ingredients":[
+    //             $("#ingredient1"),
+    //             $("#ingredient2"),
+    //             $("#ingredient3")
+    //         ],
+    //         "instructions":[
+    //             $("#instruction1"),
+    //             $("#instruction2"),
+    //             $("#instruction3")
+    //         ]
+    //     };
+    //     this.um.updateRecipe(recipeList);
+    // }
+
+    async pushRecipeUpdate(){
+        // let h = $("#recipesTotalTime").html().split(" ")[0];
+        // let m = $("#recipesTotalTime").split(" ")[1];
+        // console.log(h + " | " + m);
+        let recipeList = {
+            "hours":$("#recipeTotalTime").val().split(" ")[0],
+            "image": "/assets/images/recipes/recipe-burger.png",
+            "minutes":$("#recipeTotalTime").val().split(" ")[1],
+            "name":$("#recipeName").val(),
+            "servings":$("#recipeServingSize").val(),
+            "description":$("#recipeDesc").val(),
+            "ingredients":[
+                $("#ingredient1").val(),
+                $("#ingredient2").val(),
+                $("#ingredient3").val()
+            ],
+            "instructions":[
+                $("#instruction1").val(),
+                $("#instruction2").val(),
+                $("#instruction3").val()
+            ]
+        };
+        console.log(recipeList);
+        this.um.updateRecipe(recipeList);
+    }
+
+    async checkUser(){
         this.um.checkForUser();
-        this.setRecipeData();
+        // this.um.setRecipeData();
         // $("#userFNameTitle").html("user");
         // if(this.um.user.first_name == undefined){
         //     $("#userFNameTitle").html("user");
@@ -102,13 +153,21 @@ export default class SPAManager{
     }
 
 
-    setRecipeData(){
-        $('#recipeTitle').html(this.um.recipes[2].doc.data.value.mapValue.fields.name.stringValue);
-        $("#recipeDescription").html(this.um.recipes[2].doc.data.value.mapValue.fields.description.stringValue);
-        $("#hoursVal").html(this.um.recipes[2].doc.data.value.mapValue.fields.hours.integerValue);
-        $("#minutesVal").html(this.um.recipes[2].doc.data.value.mapValue.fields.minutes.integerValue);
-        $('#servingsVal').html(this.um.recipes[2].doc.data.value.mapValue.fields.servings.integerValue);
-    }
+    // setRecipeData(){
+    //     let rl = this.um.user.customRecipe;
+    //     console.log(rl);
+    //     $('#recipeTitle').html(rl.name);
+    //     $("#recipeDescription").html(rl.description);
+    //     $("#hoursVal").html(rl.hours);
+    //     $("#minutesVal").html(rl.minutes);
+    //     $('#servingsVal').html(rl.servings);
+    //     for(var i = 0; i < rl.ingredients.length; i++){
+    //         $("#ingredients").append(rl.ingredients[i]);
+    //     }
+    //     for(var i = 0; i < rl.ingredients.length; i++){
+    //         $("#instructions").append(rl.instructions[i]);
+    //     }
+    // }
 
     //Trigger assignment function
     setTriggers(){
@@ -149,13 +208,18 @@ export default class SPAManager{
                 break;
             case "#CREATE":
                 this.createRecipesContent();
-                this.um.testing();
+                break;
+            case "#CREATE-RECIPE":
+                this.pushRecipeUpdate();
                 break;
             case "#YOURRECIPE":
                 this.yourRecipesContent();
                 break;
             case "#EDIT":
                 this.editRecipesContent();
+                break;
+            case "#EDIT-RECIPE":
+                this.pushRecipeUpdate();
                 break;
             case "#VIEW":
                 this.viewRecipesContent();
