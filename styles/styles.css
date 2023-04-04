@@ -2037,11 +2037,17 @@ nav div a:hover {
     display: block;
     width: 2rem;
   }
+  #mainMenu {
+    display: block;
+  }
   #logoImage {
     width: 10rem;
   }
   #navLinks a, #navLinks div {
     display: none;
+  }
+  #login, #logout {
+    display: none !important;
   }
   nav svg {
     margin-left: 10vw;

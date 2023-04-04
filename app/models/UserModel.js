@@ -308,6 +308,26 @@ export default class UserModel{
             $("#instructions").append(rl.instructions[i]);
         }
     }
+
+    viewRecipeData(){
+        let rl = this.user.customRecipe;
+        console.log(rl);
+        $('#recipeTitle').html(rl.name);
+        $("#recipeDescription").html(rl.description);
+        $("#hoursVal").html(rl.hours);
+        $("#minutesVal").html(rl.minutes);
+        $('#servingsVal').html(rl.servings);
+        console.log(i + " | " + rl.ingredients[1]);
+        for(var i = 0; i < rl.ingredients.length; i++){
+            console.log(rl.ingredients.arrayValue.values[i].stringValue);
+            $("#ingredients").append("<li>" + rl.ingredients.arrayValue.values[i].stringValue + "</li>");
+        }
+        for(var i = 0; i < rl.ingredients.length; i++){
+            console.log(rl.instructions.arrayValue.values[i].stringValue);
+            $("#instructions").append("<li>" + rl.instructions.arrayValue.values[i].stringValue + "</li>");
+        }
+    }
+
     logoutUser(){
         this.auth.signOut().then(() => console.log('User signed out!'));
         $("#login").css("display", "none");

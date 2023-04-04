@@ -38,13 +38,16 @@ export default class SPAManager{
 
     editRecipesContent(){
         $("#mainContainer").html(this.pm.editContent);
-        this.um.pullRecipeData();
+        // this.um.pullRecipeData();
+        this.um.setRecipeData();
         this.checkUser();
     }
 
     viewRecipesContent(){
         $("#mainContainer").html(this.pm.viewContent);
-        this.checkUser();
+        this.checkUser().then(() => {
+            this.um.viewRecipeData();
+        });
     }
 
     loginCreateAccountContent(){
@@ -191,8 +194,18 @@ export default class SPAManager{
         $("#hamburger").on("click", e =>{
             if($("#mainMenu").css("display") == "none"){
                 $("#mainMenu").css("display", "block");
+                $("#mainMenu").css("position", "absolute");
+                $("#mainMenu").css("width", "100%");
+                $("#mainMenu").css("height", "100vh");
+                $("#mainMenu").css("left", "0");
+                $("#mainMenu").css("z-index", "9999");
             }else if($("#mainMenu").css("display") == "block"){
                 $("#mainMenu").css("display", "none");
+                $("#mainMenu").css("position", "initial");
+                $("#mainMenu").css("width", "initial");
+                $("#mainMenu").css("height", "initial");
+                $("#mainMenu").css("left", "initial");
+                $("#mainMenu").css("z-index", "initial");
             }
         });
     }

@@ -131,9 +131,9 @@
         width: 2rem;
     }
 
-    // #mainMenu{
-    //     display: block;
-    // }
+    #mainMenu{
+        display: block;
+    }
 
     #logoImage{
         width: 10rem;
@@ -141,6 +141,10 @@
 
     #navLinks a, #navLinks div{
         display: none;
+    }
+
+    #login, #logout{
+        display: none !important;
     }
 
     nav svg{
